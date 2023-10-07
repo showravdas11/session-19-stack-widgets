@@ -1,4 +1,5 @@
 import 'package:custom_widget/CustomDrawer.dart';
+import 'package:custom_widget/userDetails.dart';
 import 'package:custom_widget/userModel.dart';
 import 'package:flutter/material.dart';
 
@@ -55,49 +56,62 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      textColor: Colors.white,
-                      // tileColor: Colors.black,
-                      contentPadding: EdgeInsets.all(8),
-                      leading: Stack(
-                        // alignment: Alignment.center,
-                        children: <Widget>[
-                          // Circular avatar profile
-                          CircleAvatar(
-                            radius: 80.0,
-                            // backgroundImage: NetworkImage('https://i.ibb.co/gwGyZP0/5556468.png', ),
-                            child: ClipRRect(
-                              child: Image.network(users[index].image),
-                              borderRadius: BorderRadius.circular(50.0),
+                    child: GestureDetector(
+                      onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UserDetails(),
+                              settings: RouteSettings(
+                                arguments: users[index],
+                              ),
                             ),
-                          ),
-                          // Online status indicator
-                          Positioned(
-                            bottom: 0,
-                            right: 55,
-                            child: Container(
-                              width: 15.0,
-                              height: 15.0,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: const Color.fromARGB(255, 41, 228, 47),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2.0,
+                          );
+                        },
+                      child: ListTile(
+                        textColor: Colors.white,
+                        // tileColor: Colors.black,
+                        contentPadding: EdgeInsets.all(8),
+                        leading: Stack(
+                          // alignment: Alignment.center,
+                          children: <Widget>[
+                            // Circular avatar profile
+                            CircleAvatar(
+                              radius: 80.0,
+                              // backgroundImage: NetworkImage('https://i.ibb.co/gwGyZP0/5556468.png', ),
+                              child: ClipRRect(
+                                child: Image.network(users[index].image),
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                            ),
+                            // Online status indicator
+                            Positioned(
+                              bottom: 0,
+                              right: 55,
+                              child: Container(
+                                width: 15.0,
+                                height: 15.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: const Color.fromARGB(255, 41, 228, 47),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 2.0,
+                                  ),
                                 ),
                               ),
                             ),
+                          ],
+                        ),
+                        title: Text(users[index].name),
+                        subtitle: Text(users[index].message),
+                        trailing: CircleAvatar(
+                          radius: 7.0,
+                          // backgroundImage: NetworkImage('https://i.ibb.co/gwGyZP0/5556468.png', ),
+                          child: ClipRRect(
+                            child: Image.network(users[index].image),
+                            borderRadius: BorderRadius.circular(7.0),
                           ),
-                        ],
-                      ),
-                      title: Text(users[index].name),
-                      subtitle: Text(users[index].message),
-                      trailing: CircleAvatar(
-                        radius: 7.0,
-                        // backgroundImage: NetworkImage('https://i.ibb.co/gwGyZP0/5556468.png', ),
-                        child: ClipRRect(
-                          child: Image.network(users[index].image),
-                          borderRadius: BorderRadius.circular(7.0),
                         ),
                       ),
                     ),
